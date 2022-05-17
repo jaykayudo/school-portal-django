@@ -1,0 +1,27 @@
+{% extends 'staff/base.html' %}
+{% load staticfiles %}
+{% block title %}Your Classes{% endblock %}
+{% block content %}
+            <div class="pad-container pt-4">
+                <h2 class="header">
+                    Your Classes
+                </h2>
+                <div class="row">
+                    {% for class in classes%}
+                    <div class="column-4">
+                        <a href="class-details.html" class="link">
+                            <div class="box flex-center flex-column class-box">
+                                <h3>{{class.name}}</h3>
+                                <span>{{class.student_set.all.count}} Students</span>
+                            </div>
+                        </a>
+                        
+                    </div>
+                    {% empty %}
+                    <div class="no-item">
+                        <p>No assigned class yet</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+{% endblock %}

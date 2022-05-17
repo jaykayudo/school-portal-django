@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css" integrity="sha512-NZ19NrT58XPK5sXqXnnvtf9T5kLXSzGQlVZL9taZWeTBtXoN3xIfTdxbkQh6QSoJfJgpojRqMfhyqBAAEeiXcA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Class</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <h2 class="sidenav-header">
+                Staff
+            </h2>
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link "><span class="nav-icon"><i class="fa-solid fa-house"></i></span><span class="nav-text">Home</span></a></li>
+                <li><a href="class.html" class="nav-link nav-active"><span class="nav-icon"><i class="fa-solid fa-landmark"></i></span><span class="nav-text">Class</span></a></li>
+                <li><a href="student.html" class="nav-link"><span class="nav-icon"><i class="fa-solid fa-users"></i></span><span class="nav-text">Students</span></a></li>
+                <li><a href="inbox.html" class="nav-link"><span class="nav-icon"><i class="fa-solid fa-envelope"></i></span><span class="nav-text">Inbox</span></a></li>
+                <li><a href="#" class="nav-link"><span class="nav-icon"><i class="fa-solid fa-upload"></i></span><span class="nav-text">Uploads</span></a></li>
+                <li><a href="javascript::void(0)" id="logout-open" class="nav-link"><span class="nav-icon"><i class="fa-solid fa-sign-out"></i></span><span class="nav-text">Sign Out</span></a></li>
+            </ul>
+            
+        </div>
+        <div class="content">
+            <div class="pad-container pt-4">
+                <h2 class="header flex-between">
+                   Class of JSS 1
+                   <a href="#" class="site-button small-text"><i class="fa fa-upload"></i> Upload Report</a>
+                </h2>
+                <div class="row-6">
+                    <div class="column-6">
+                        <div class="box">
+                            <div class="detail-profile-image">
+                                Jss 1
+                            </div>
+                            <ul class="detail-content">
+                                <li><strong>Class Teacher:</strong> Zakari</li>
+                                <li><strong>Number of Students:</strong> 30</li>
+                                <li><strong>Subject(s) you teach:</strong> Maths, Physics</li>
+                                <li><strong>Number of Students offering your course(s):</strong> 25</li>
+                                <li><strong>Class Representative:</strong> Mubarak</li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="column-6">
+                        <div class="box">
+                            
+                            <div class="schedule-box scroll-box">
+                                <h3>Activity</h3>
+                                <div class="box-content bg-color">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis natus aut fuga id. Blanditiis doloremque labore delectus recusandae quis. Unde autem veniam eos sit blanditiis! Ab magni rem perferendis! Officiis!
+                                    </p>
+                                    <footer>
+                                        <span><i class="fa-solid fa-calendar-days"></i>&nbsp;4th April, 2022</span>&nbsp;&nbsp;
+                                        <span><i class="fa-solid fa-clock"></i>&nbsp;10:00am</span>
+                                    </footer>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-box hidden" id="logout-modal">
+        
+        <div class="form-box">
+            <h3 class="header">Are you Sure?</h3>
+            <div class="logout-box">
+                <div class="form-group flex-between ">
+                    <a href="logout.html" class="site-button">Logout</a>
+                    <a href="javascript::void(0)"  id="logout-close" class="site-button site-button-invert">Cancel</a>
+                </div>
+            </div>
+               
+                
+            
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

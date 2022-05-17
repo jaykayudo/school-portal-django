@@ -1,0 +1,78 @@
+{% extends 'admins/base.html' %}
+{% load path_checker %}
+{% block title %} Send Mail {% endblock %}
+{% block content %} 
+        <div class="pad-container pt-4">
+          <div class="pt-4">
+            <h2 class="header flex-center">Send Mail</h2>
+          </div>
+          
+        <div class="flex-center page-box">
+            <div class="large-form-box">
+                <div class="form-header">
+                    Fill the Form
+                </div>
+                <form action="" method="POST" class="mb-4" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {{form.errors}}
+                    <div class="form-group mb-4">
+                      <label>Receivers</label>
+                      <select name="receivers" multiple required class="form-control">
+                        {% for x in users %}
+                        {% if x.is_staff %}
+                          <option value="{{x.id}}" >{{x.admin.firstname}} {{x.staff.lastname}}</option>
+                        {% else %}
+                          <option value="{{x.id}}">{{x.staff.firstname}} {{x.staff.lastname}}</option>
+                        {% endif %}
+                        {% endfor %}
+                        
+                      </select>
+                      <span class="small-text">Hold ctrl and select to select multiple options</span>
+                      <span class="error-msg small-text">{{form.receivers.errors|default:''}}</span>
+                    </div>
+                
+                    <div class="form-group mb-4">
+                        <input type="text" name="subject" class="form-control" placeholder=" ">
+                            <label> Subject* </label>
+                    </div>
+                    <div class="form-group mb-4">
+                        <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Message*"></textarea>
+                    </div>
+                    <div class="form-group mb-4">
+                        <button class="site-button" type="button" id="image-button">
+                            <i class="fas fa-upload"></i>&nbsp;Choose Attachment
+                        </button>
+                        <input type="file" name="attachment" id="image-file-button" hidden>
+                        <br><span class="small-text" id="image-text">{{form.attachment.value|default:'No File Chosen'}}</span>
+                    </div>
+                    <div class="form-group mb-4">
+                      <label> Mail Flag </label>
+                      {{form.flag}}
+                    </div>
+                    <div class="form-group flex-center">
+                        <button class="site-button">
+                            <i class="fas fa-paper-plane"></i>&nbsp;Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extrascript %}
+<script>
+   var imageFileButton = document.getElementById('image-file-button');
+  var imageButton = document.getElementById('image-button');
+  var imageText = document.getElementById('image-text');
+  var state = document.getElementById('state');
+  imageButton.onclick = function(){
+      imageFileButton.click();
+  }
+  imageFileButton.onchange = function(){
+      if(imageFileButton.value != ""){
+          imageText.textContent = imageFileButton.files[0].name;
+      }
+  }
+</script>
+{% endblock %}

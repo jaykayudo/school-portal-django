@@ -1,0 +1,102 @@
+{% extends 'admins/base.html' %}
+{% load staticfiles %}
+{% block title %} Staff Details {% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'staff/apis/smart.default.css' %}" />
+{% endblock %}
+{% block content %}
+        <div class="pad-container pt-4">
+          <div class="content-nav">
+            <h2 class="header">Staff Information</h2>
+            <div class="nav-link-add">
+              <a href="#" class="nav-icon-add">Reset Password</a>
+              <a href="{% url 'admins:staff-toggle' object.id %}" class="nav-icon-add">{% if object.status %}Block Staff{% else %}Activate Staff{% endif %}</a>
+              <a href="#" class="nav-icon-add">
+                Delete Staff
+              </a>
+            </div>
+          </div>
+          <div class="row-6">
+            <div class="column-6">
+                <div class="box">
+                    <h3 class="flex-between">Personal Information <a href="#" class="site-button small-text"><i class="fa fa-pencil"></i>&nbsp; Edit</a></h3>
+                   {% if object.image %}
+                        <img src="{{ object.image.url}}" class="detail-profile-image">
+                    {% else %}
+                    {% if object.sex == 'M'%}
+                        <img src="{% static 'staff/images/male-placeholder.png' %}" class="detail-profile-image">
+                    {% else %}
+                        <img src="{% static 'staff/images/female-placeholder.png' %}" class="detail-profile-image">
+                    {% endif %}
+                    {% endif %}
+
+                    <ul class="detail-content line-height-small">
+                        <li><strong>Name of Staff:</strong> {{object.firstname}} {{object.lastname}}</li>
+                        <li><strong>Date of Birth:</strong> {{object.dob}}</li>
+                        <li><strong>Sex:</strong> {{object.get_sex_display}}</li>
+                        <li><strong>Phone Number:</strong> {{object.phonenumber}}</li>
+                        <li><strong>Email:</strong> {{object.user.email}}</li>
+                        <li><strong>State:</strong> {{object.state}} </li>
+                        <li><strong>Local Government:</strong> {{object.lga}}</li>
+                        <li><strong>Home Town:</strong> {{object.hometown}}</li>
+                        <!-- <li><strong>Residential Address:</strong> Omorinre Johnson Street, Lekki Phase 1,Lagos</li> -->
+                        <li><strong>Account Number:</strong> {{object.accountnumber|default:"Not Provided"}}</li>
+                        <li><strong>Account Name:</strong> {{object.accountname|default:"Not Provided"}}</li>
+                        <li><strong>Bank:</strong> {{object.bank|default:"Not Provided"}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="column-6">
+                <div class="box">
+                    <h3>School Information</h3>
+                    <ul class="detail-content line-height-small">
+                        <li><strong>{{object.firstname}}'s Class(es):</strong> <ul class="inner-list">
+                            {% for x in classes %}
+                            <li>{{x}}</li>
+                            {% empty %}
+                            <div class="no-item">
+                                <p>
+                                    None Assigned
+                                </p>
+                            </div>
+                            {% endfor %}
+
+                        </ul></li>
+                        <li><strong> {{object.firstname}}'s Subject(s):</strong><ul class="inner-list">
+                            {% for x in subjects %}
+                            <li>{{x}}</li>
+                            {% empty %}
+                            <div class="no-item">
+                                <p>
+                                    None Assigned
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </ul></li>
+                        <li><strong>Position: </strong> {{object.position|default:"None assigned"}} </li>
+                        <li><strong>Status: </strong> <span class="color-success">{{object.status}}</span> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+{% endblock %}
+{% block extrascript %}
+<script type="module" src="../apis/smart.calendar.js"></script>
+        <script>
+          window.onload = function () {
+              Smart(
+                "#calendar",
+                class {
+                  get properties() {
+                    return { selectedDates: ["2020-7-2", "2020-7-17"] };
+                    }
+                  }
+                );
+              document.querySelector("smart-calendar").selectedDates = [
+                  "2018-1-1",
+                  new Date(2018, 0, 2),
+                ];
+              };
+</script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'admins/base.html' %}
+{% block title %}settings{% endblock %}
+{% block content %}
+          <h2 class="greetings">Settings</h2>
+          <!-- <a href="#" class="content-nav-link">
+            <span class="nav-icon">
+              <span class="add-event"></span>
+            </span>
+          </a> -->
+        <!-- content features -->
+        <div class="settings-content">
+          <div class="settings-wrapper">
+            <ul class="settings-nav">
+              <a href="{% url 'admins:settings' %}" class="settings-nav-link {% if request.path == '/admin/settings/' %}nav-current{% endif %}">
+                <li class="settings-nav-item">My Details</li>
+              </a>
+
+              <a href="{% url 'admins:settings-password' %}" class="settings-nav-link {% if request.path == '/admin/settings/password/' %}nav-current{% endif %}">
+                <li class="settings-nav-item">Password</li>
+              </a>
+              <a href="#" class="settings-nav-link">
+                <li class="settings-nav-item">Email</li>
+              </a>
+              <a href="#" class="settings-nav-link">
+                <li class="settings-nav-item">Users</li>
+              </a>
+              <a href="#" class="settings-nav-link">
+                <li class="settings-nav-item">Site Info</li>
+              </a>
+            </ul>
+          </div>
+          <div>
+              {% block settings_content %}
+              {% endblock %}
+          </div>
+        </div>
+         
+{% endblock %}

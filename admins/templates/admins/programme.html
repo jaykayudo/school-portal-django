@@ -1,0 +1,73 @@
+{% extends 'admins/base.html' %}
+{% block title %} Programme {% endblock %}
+{% block content %}
+        <div class="content-nav">
+          <h2 class="greetings">Programme</h2>
+          <div class="nav-link-add">
+            <a href="{% url 'admins:programme-add-class' %}" class="nav-icon-add">Add class</a>
+            <a href="{% url 'admins:programme-add-subject' %}" class="nav-icon-add second-btn">Add Subject</a>
+            <a href="{% url 'admins:programme-add-topic' %}" class="nav-icon-add second-btn">Add Topic</a>
+          </div>
+        </div>
+
+        <!-- all syllabus -->
+        <div class="global-syllabus">
+          <div class="box table-box display">
+            {% for subject in subjects%}
+            <div class="subject">
+              <!-- subject -->
+              <a href="{% url 'admins:programme-edit-subject' subject.pk %}" class="subject-header">{{subject.abbr}}</a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- all syllabus junior school -->
+        <!-- jss1 syllabus -->
+        {% for class in classes %}
+        <div class="syllabus">
+          <div class="syllabus-class flex-between">
+            <h1>{{ class.name }}</h1>
+            <a href="{% url 'admins:programme-edit-class' class.pk %}" class="site-button" style="margin-right: 20px;"><i class="fas fa-pen-alt"></i> Edit </a>
+          </div>
+          <!-- table data -->
+          <div class="box table-box">
+            <ul class="unstyle mb-4">
+              <li>No. of Subjects: {{class.subject.all|length}}</li>
+              <li>No of Students: {{class.student_number}}</li>
+              <li>Class Teacher: {{class.classteacher}}</li>
+            </ul>
+            {% if class.subject.all %}
+            <table class="style-table">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+
+                  <th>Abbr</th>
+
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for subject in class.subject.all %}
+                <tr>
+                  <td>{{subject.name}}</td>
+                  <td>{{subject.abbr}}</td>
+
+                  
+                </tr>
+                
+                {% endfor%}
+                
+              </tbody>
+            </table>
+            {% else %}
+            <div class="no-item">
+              <p>No Subject</p>
+            </div>
+            {% endif %}
+            
+          </div>
+        </div>
+        {% endfor %}
+{% endblock %}

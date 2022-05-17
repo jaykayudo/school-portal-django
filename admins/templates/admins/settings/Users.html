@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css" integrity="sha512-NZ19NrT58XPK5sXqXnnvtf9T5kLXSzGQlVZL9taZWeTBtXoN3xIfTdxbkQh6QSoJfJgpojRqMfhyqBAAEeiXcA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
+      integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="./fontawesome-free-5.12.1-web/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../apis/smart.default.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js"
+      integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="module" src="../apis/smart.calendar.js"></script>
+    <title>Inbox</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sidebar">
+        <h2 class="sidenav-header">Admin</h2>
+        <ul class="nav-list">
+          <li>
+            <a href="index.html" class="nav-link"
+              ><span class="nav-icon"><i class="fas fa-th-large"></i></span
+              ><span class="nav-text">Dashboard</span></a
+            >
+          </li>
+          <li>
+            <a href="staffs.html" class="nav-link"
+              ><span class="nav-icon"><i class="fas fa-users"></i></span
+              ><span class="nav-text">Staffs</span></a
+            >
+          </li>
+          <li>
+            <a href="students.html" class="nav-link"
+              ><span class="nav-icon"><i class="fas fa-user-graduate"></i></span
+              ><span class="nav-text">Students</span></a
+            >
+          </li>
+          <li>
+            <a href="inbox.html" class="nav-link"
+              ><span class="nav-icon"><i class="fas fa-envelope"></i></span
+              ><span class="nav-text">Inbox</span></a
+            >
+          </li>
+          <li>
+            <a href="events.html" class="nav-link"
+              ><span class="nav-icon"><i class="fas fa-calendar-alt"></i></span
+              ><span class="nav-text">Events</span></a
+            >
+          </li>
+          <li>
+            <a href="programme.html" class="nav-link"
+              ><span class="nav-icon"><i class="fas fa-tasks"></i></span
+              ><span class="nav-text">Programme</span></a
+            >
+          </li>
+
+          <li>
+            <a href="settings.html" class="nav-link nav-active"
+              ><span class="nav-icon"><i class="fas fa-cog"></i></span
+              ><span class="nav-text">Settings</span></a
+            >
+          </li>
+          <li>
+            <a href="javascript:void(0)" id="logout-open" class="nav-link"
+              ><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span
+              ><span class="nav-text">Sign Out</span></a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="content">
+        <div class="content-nav">
+          <h2 class="greetings">Settings</h2>
+          <!-- <a href="#" class="content-nav-link">
+            <span class="nav-icon">
+              <span class="add-event"></span>
+            </span>
+          </a> -->
+        </div>
+
+        <!-- content features -->
+        <div class="settings-content">
+          <div class="settings-wrapper">
+            <ul class="settings-nav">
+              <a href="settings.html" class="settings-nav-link">
+                <li class="settings-nav-item">My Details</li>
+              </a>
+
+              <a href="password.html" class="settings-nav-link">
+                <li class="settings-nav-item">Password</li>
+              </a>
+              <a href="email.html" class="settings-nav-link">
+                <li class="settings-nav-item">Email</li>
+              </a>
+              <a href="Users.html" class="settings-nav-link nav-current">
+                <li class="settings-nav-item">Users</li>
+              </a>
+              <a href="#" class="settings-nav-link">
+                <li class="settings-nav-item">Site Info</li>
+              </a>
+            </ul>
+          </div>
+          <!-- deatails -->
+          <div class="details-content">
+            <!-- nav header -->
+            <div class="details-nav">
+              <div class="personal-info">
+                <h1 class="personal-info-header">Users</h1>
+                <p class="personal-info-sub-header">Select users</p>
+              </div>
+              <!-- nav btn -->
+              <!-- <div class="nav-link-add">
+                <a href="#" class="nav-icon-cancel">Cancel</a>
+                <a href="#" class="nav-icon-save">Save</a>
+              </div>-->
+            </div>
+
+            <!-- Notification from Admin -->
+            <div class="personnel-name">
+              <div class="personnel-container">
+                <div class="detail-name">
+                  <h1 class="detail-name-header">Add admin</h1>
+                </div>
+
+                
+                
+              </div>
+            </div>
+            <!-- reminder -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../apis/smart.calendar.js"></script>
+    <script>
+      window.onload = function () {
+        Smart(
+          "#calendar",
+          class {
+            get properties() {
+              return { selectedDates: ["2020-7-2", "2020-7-17"] };
+            }
+          }
+        );
+        document.querySelector("smart-calendar").selectedDates = [
+          "2018-1-1",
+          new Date(2018, 0, 2),
+        ];
+      };
+    </script>
+    <div class="modal-box hidden" id="logout-modal">
+      <div class="form-box">
+        <h3 class="header">Are you Sure?</h3>
+        <div class="logout-box">
+          <div class="form-group flex-between">
+            <a href="logout.html" class="site-button">Logout</a>
+            <a
+              href="javascript::void(0)"
+              id="logout-close"
+              class="site-button site-button-invert"
+              >Cancel</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="sigout.js"></script>
+  </body>
+</html>

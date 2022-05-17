@@ -1,0 +1,41 @@
+{% extends 'staff/base.html' %}
+{% load staticfiles %}
+{% load path_checker %}
+{% block title %}Message Detail{% endblock %}
+{% block content %}
+
+        <div class="pad-container flex min-h-100 flex-column">
+            <div class=" pt-3 pb-3">
+                <a href="{% url 'staff:inbox-list' %}" class="back-button large-text">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                
+            </div>
+            <div class="box">
+                <header class="flex-end">
+                    <a href="{% url 'staff:inbox-delete' object.id %}" class="site-button">
+                        <i class="fa-solid fa-trash"></i>&nbsp;Delete
+                    </a>
+                </header>
+                <h3>{{object.subject}} </h3>
+                <p class="small-text color-gray">
+                    from: {{object|get:"_from"}}
+                </p>
+                <p class="pt-1 pb-1">
+                    {{object.message }}
+                </p>
+                {% if object.attachment %}
+                <a href="{{object.attachment.url}}" class="attachment">
+                    {{object.attachment.name}}
+                </a>
+                {% endif %}
+                <footer class="flex-between">
+                    <span class="message color-{{object.get_flag_display}}"><i class="fa fa-bookmark"></i>&nbsp;Treat as {{object.get_flag_display}}</span>
+                    <span>
+                        <span><i class="fa-solid fa-clock"></i> {{ object.time }}</span>&nbsp;&nbsp;
+                        <span><i class="fa-solid fa-calendar-days"></i> {{ object.date }}</span>
+                    </span>
+                </footer>
+            </div>
+        </div>
+{% endblock %}

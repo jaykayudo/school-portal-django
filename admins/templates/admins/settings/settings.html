@@ -1,0 +1,125 @@
+{% extends 'admins/settings/base.html' %}
+{% block settings_content %}
+          <div class="details-content">
+            <!-- nav header -->
+            <div class="details-nav">
+              <div class="personal-info">
+                <h1 class="personal-info-header">Personal Info</h1>
+                <p class="personal-info-sub-header">
+                  Update your photo and personal details here.
+                </p>
+              </div>
+              <!-- nav btn -->
+              <div class="nav-link-add">
+                <a href="#" class="nav-icon-cancel">Cancel</a>
+                <a href="#" class="nav-icon-save">Save</a>
+              </div>
+            </div>
+
+            <!-- name -->
+            <div class="personnel-name">
+              <div class="personnel-container">
+                <div class="detail-name">
+                  <h1 class="detail-name-header">Name</h1>
+                </div>
+
+                <!-- input fields -->
+                <div class="detail-name-input">
+                  <input
+                    type="text"
+                    name="surname"
+                    id="surname"
+                    placeholder="surname"
+                    class="input-one"
+                  />
+                  <input
+                    type="text"
+                    name="firstname"
+                    id="firstname"
+                    placeholder="firstname"
+                    class="input-one"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- email -->
+            <div class="personnel-email">
+              <div class="email-container">
+                <div class="detail-email">
+                  <h1 class="detail-name-header">Email</h1>
+                </div>
+
+                <!-- input fields -->
+                <div class="detail-email-input">
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="email"
+                    class="input-two"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- role -->
+            <div class="personnel-role">
+              <div class="role-container">
+                <div class="detail-name">
+                  <h1 class="detail-name-header">Role</h1>
+                </div>
+
+                <!-- input fields -->
+                <div class="detail-role-input">
+                  <input
+                    type="text"
+                    name="role"
+                    id="role"
+                    placeholder="role"
+                    class="input-two"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Photo-->
+            <div class="personnel-email">
+              <div class="email-container">
+                <div class="detail-email">
+                  <h1 class="detail-name-header">Photo</h1>
+                  <p class="personal-info-sub-header photo-info">
+                    This would be displayed on your profile
+                  </p>
+                </div>
+
+                <!-- input fields -->
+                <div class="admin-profile-icon">
+                  <img
+                    src="./images/pexels-tuấn-kiệt-jr-1382731.jpg"
+                    class="detail-profile-image admin-img"
+                  />
+                  <input type="file" name="" id="" class="input-three" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Photo-->
+            <div class="personnel-email">
+              <div class="email-container">
+                <div class="detail-email">
+                  <h1 class="detail-name-header">Company Logo</h1>
+                  <p class="personal-info-sub-header photo-info">
+                    Upload your company logo.
+                  </p>
+                </div>
+
+                <!-- input fields -->
+                <div class="admin-profile-icon">
+                  <img
+                    src="./images/144-1443138_mac-maple-grove-school-islamic-school-logo-design.png"
+                    class="detail-profile-image admin-img"
+                  />
+                  <input type="file" name="" id="" class="input-three" />
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock %}

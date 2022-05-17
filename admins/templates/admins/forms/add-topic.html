@@ -1,0 +1,41 @@
+{% extends 'admins/base.html' %}
+{% load path_checker %}
+{% block title %} Add Subject {% endblock %}
+{% block content %}  
+  <div >
+  <a href="{% url 'admins:programme' %}" class="back-button large-text">
+      <i class="fas fa-arrow-left"></i>
+  </a>
+  </div>
+        <div class="pad-container pt-4">
+          <div class="pt-4">
+            <h2 class="header flex-center">Add Topic</h2>
+          </div>
+          
+        <div class="flex-center page-box">
+            <div class="large-form-box">
+                <div class="form-header">
+                    Fill the Form
+                </div>
+                <form action="" method="post" class="mb-4">
+                   {% csrf_token %}
+                    <div class="form-group ">
+                        {{form.klass}}
+                        <label for="">Class*</label>
+                    </div>
+                    
+                    <div class="form-group ">
+                        {{form.subject}}
+                        <label>Subject*</label>
+                    </div>
+                    
+                    <div class="form-group flex-center">
+                        <button class="site-button">
+                            <i class="fas fa-plus"></i>&nbsp;Add
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

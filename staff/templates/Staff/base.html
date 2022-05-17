@@ -1,0 +1,129 @@
+{% load staticfiles %}
+{% load path_checker %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css" integrity="sha512-NZ19NrT58XPK5sXqXnnvtf9T5kLXSzGQlVZL9taZWeTBtXoN3xIfTdxbkQh6QSoJfJgpojRqMfhyqBAAEeiXcA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
+      integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="{% static 'staff/apis/smart.default.css' %}" />
+    <link rel="stylesheet" href="{% static 'staff/variables.css' %}" />
+    <link rel="stylesheet" href="{% static 'staff/style.css' %}" />
+    <title>{% block title %}Dashboard{% endblock %}</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sidebar">
+        <h2 class="sidenav-header">Staff</h2>
+        <ul class="nav-list">
+          <li>
+            <a href="{% url 'staff:dashboard' %}" class="nav-link"
+              ><span class="nav-icon"><i class="fa-solid fa-house"></i></span
+              ><span class="nav-text">Home</span></a
+            >
+          </li>
+          <li>
+            <a href="{% url 'staff:dashboard' %}" class="nav-link {% if request.path|pathcheck:'/staff/dashboard/' %}nav-active{% endif %}"
+              ><span class="nav-icon"><i class="fa-solid fa-dashboard"></i></span
+              ><span class="nav-text">Dashboard</span></a
+            >
+          </li>
+          <li>
+            <a href="{% url 'staff:class' %}" class="nav-link {% if request.path|pathcheck:'/staff/classes/' %}nav-active{% endif %}"
+              ><span class="nav-icon"><i class="fa-solid fa-landmark"></i></span
+              ><span class="nav-text">Class</span></a
+            >
+          </li>
+          <li>
+            <a href="{% url 'staff:student-list' %}" class="nav-link {% if request.path|pathcheck:'/staff/students/' %}nav-active{% endif %}"
+              ><span class="nav-icon"><i class="fa-solid fa-users"></i></span
+              ><span class="nav-text">Students</span></a
+            >
+          </li>
+          <li>
+            <a href="{% url 'staff:inbox-list' %}" class="nav-link {% if request.path|pathcheck:'/staff/inbox/' %}nav-active{% endif %}"
+              ><span class="nav-icon"><i class="fa-solid fa-envelope"></i></span
+              ><span class="nav-text">Inbox</span></a
+            >
+          </li>
+          <li>
+            <a href="{% url 'staff:uploads' %}" class="nav-link {% if request.path|pathcheck:'/staff/uploads/' %}nav-active{% endif %}"
+              ><span class="nav-icon"
+                ><i class="fa-solid fa-upload"></i></span
+              ><span class="nav-text">Uploads</span></a
+            >
+          </li>
+          <li>
+            <a href="#" id="logout-open" class="nav-link"
+              ><span class="nav-icon"><i class="fa-solid fa-sign-out"></i></span
+              ><span class="nav-text">Sign Out</span></a
+            >
+          </li>
+        </ul>
+      </div>
+      
+      <div class="content">
+        {% for message in messages %}
+        <div class="flex-center pt-3 pb-3"  style="position: absolute; z-index: 1000;">
+        <div class="alert alert-{{message.tags}} text-center" style=" max-width: 300px; margin: auto;" role="alert" id="liveAlert">
+          {{message}}  
+        </div>
+      </div>
+      {% endfor %}
+          {% block content %}
+          
+          {% endblock %}
+      </div>
+    </div>
+    <div class="modal-box hidden" id="logout-modal">
+        
+        <div class="form-box">
+            <h3 class="header">Are you Sure?</h3>
+            <div class="logout-box">
+                <div class="form-group flex-between ">
+                    <a href="{% url 'staff:logout' %}" class="site-button">Logout</a>
+                    <a href="javascript::void(0)"  id="logout-close" class="site-button site-button-invert">Cancel</a>
+                </div>
+            </div>
+               
+                
+            
+        </div>
+    </div>
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js"
+      integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script> -->
+    <script src="{% static 'staff/jquery.js' %}"></script>
+    <script type="module" src="{% static 'staff/apis/smart.calendar.js' %}"></script>
+    <script src="{% static 'staff/script.js' %}">
+      
+    </script>
+    <script src="{% static 'staff/ajax.js' %}"></script>
+    {% block extrascript %}
+    {% endblock %}   
+  </body>
+</html>

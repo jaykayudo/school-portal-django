@@ -1,0 +1,221 @@
+{% extends 'admins/base.html' %}
+{% load staticfiles %}
+{% load path_checker %}
+{% block title %} Add Students {% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+{% block content %}
+        <div class="pad-container pt-4">
+          <div class="pt-4">
+            <h2 class="header flex-center">Add Student</h2>
+          </div>
+          
+        <div class="flex-center page-box">
+            <div class="large-form-box">
+                <div class="form-header">
+                    Fill the Form
+                </div>
+                <form action="" method="post" enctype="multipart/form-data" class="mb-4">
+                  {% csrf_token %}
+                  <!-- {{form.errors}} -->
+                    <div class="boot-row mb-4">
+                        <div class="col-6">
+                            <img src="images/Passport-Photos-Man.jpg" alt="" class="detail-profile-image" style="width: 100px; height: 100px;">
+                        </div>
+                        <div class="form-group col-6">
+                          <button class="site-button" type="button" id="image-button">
+                              <i class="fa-solid fa-upload"></i> Upload Profile Picture
+                          </button>
+                          <input type="file" id="image-file-button" name="image" accept="image/*" hidden> 
+                          <br><span class="small-text" id="image-text">{% if form.image.value %}{{form.image.name}}{% else %}No file chosen{% endif %}</span>
+                          {% if form.image.errors %}
+                           <br><span class="error-msg">{{form.image.errors}}</span>
+                          {% endif %}
+                      </div> 
+                        
+                    </div>
+                    <div class="boot-row mb-4"> <div class="side-form-group col-6 ">
+                      <input type="text" name="firstname" class="form-control" placeholder=" " value="{{form.firstname.value|default:''}}" required>
+                      <label> First Name </label>
+                      {% if form.firstname.errors %}
+                          <span class="error-msg">{{form.firstname.errors}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="side-form-group col-6">
+                      <input type="text" name="lastname" class="form-control" placeholder=" " value="{{form.lastname.value|default:''}}" required>
+                      <label> Last Name </label>
+                      {% if form.lastname.errors %}
+                          <span class="error-msg">{{form.lastname.errors}}</span>
+                      {% endif %}
+                    </div></div>
+                    
+                    <div class= "boot-row mb-4"> <div class="side-form-group col-6">
+                      <select name="sex" id="" class="form-control" style="padding-left: 4px;" required>
+                        <option value="">Sex</option>
+                        <option value="M" {% if form.sex.value == 'M'%}selected{% endif %}>Male</option>
+                        <option value="F" {% if form.sex.value == 'F'%}selected{% endif %}>Female</option>
+                      </select>
+                    {% if form.sex.errors %}
+                        <span class="error-msg">{{form.sex.errors}}</span>
+                    {% endif %}
+                        
+                    </div>
+                    <div class="side-form-group col-6">
+                      <input type="text" name="dob" id="datepicker" class="form-control" placeholder=" " value="{{form.dob.value|date:'d/m/Y'|default:''}}" required>
+                      <label> Date of Birth </label>
+                      <span class="small-text">mm/dd/yy</span>
+                      {% if form.dob.errors %}
+                          <span class="error-msg">{{form.dob.errors}}</span>
+                      {% endif %}
+                  </div>
+                   </div>
+                    <div class="boot-row mb-4">
+                      <div class="side-form-group col-6">
+                        <select onchange="toggleLGA(this);" name="state" id="state" class="form-control" placeholder=" " value="{{form.state.value|default:''}}" required>
+                            <option value="" >State</option>
+                            <option value="Abia" {% if form.state.value == 'Abia'%}selected{% endif %}>Abia</option>
+                            <option value="Adamawa" {% if form.state.value == 'Adamawa'%}selected{% endif %}>Adamawa</option>
+                            <option value="AkwaIbom" {% if form.state.value == 'AkwaIbom'%}selected{% endif %}>AkwaIbom</option>
+                            <option value="Anambra" {% if form.state.value == 'Anambra'%}selected{% endif %}>Anambra</option>
+                            <option value="Bauchi" {% if form.state.value == 'Bauchi'%}selected{% endif %}>Bauchi</option>
+                            <option value="Bayelsa" {% if form.state.value == 'Bayelsa'%}selected{% endif %}>Bayelsa</option>
+                            <option value="Benue" {% if form.state.value == 'Benue'%}selected{% endif %}>Benue</option>
+                            <option value="Borno" {% if form.state.value == 'Borno'%}selected{% endif %}>Borno</option>
+                            <option value="Cross River" {% if form.state.value == 'Cross River'%}selected{% endif %}>Cross River</option>
+                            <option value="Delta" {% if form.state.value == 'Delta'%}selected{% endif %}>Delta</option>
+                            <option value="Ebonyi" {% if form.state.value == 'Ebonyi'%}selected{% endif %}>Ebonyi</option>
+                            <option value="Edo" {% if form.state.value == 'Edo'%}selected{% endif %}>Edo</option>
+                            <option value="Ekiti" {% if form.state.value == 'Ekiti'%}selected{% endif %}>Ekiti</option>
+                            <option value="Enugu" {% if form.state.value == 'Enugu'%}selected{% endif %}>Enugu</option>
+                            <option value="FCT" {% if form.state.value == 'FCT'%}selected{% endif %}>FCT</option>
+                            <option value="Gombe" {% if form.state.value == 'Gombe'%}selected{% endif %}>Gombe</option>
+                            <option value="Imo" {% if form.state.value == 'Imo'%}selected{% endif %}>Imo</option>
+                            <option value="Jigawa" {% if form.state.value == 'Jigawa'%}selected{% endif %}>Jigawa</option>
+                            <option value="Kaduna" {% if form.state.value == 'Kaduna'%}selected{% endif %}>Kaduna</option>
+                            <option value="Kano" {% if form.state.value == 'Kano'%}selected{% endif %}>Kano</option>
+                            <option value="Katsina" {% if form.state.value == 'Katsina'%}selected{% endif %}>Katsina</option>
+                            <option value="Kebbi" {% if form.state.value == 'Kebbi'%}selected{% endif %}>Kebbi</option>
+                            <option value="Kogi" {% if form.state.value == 'Kogi'%}selected{% endif %}>Kogi</option>
+                            <option value="Kwara" {% if form.state.value == 'Kwara'%}selected{% endif %}>Kwara</option>
+                            <option value="Lagos" {% if form.state.value == 'Lagos'%}selected{% endif %}>Lagos</option>
+                            <option value="Nasarawa" {% if form.state.value == 'Nasarawa'%}selected{% endif %}>Nasarawa</option>
+                            <option value="Niger" {% if form.state.value == 'Niger'%}selected{% endif %}>Niger</option>
+                            <option value="Ogun" {% if form.state.value == 'Ogun'%}selected{% endif %}>Ogun</option>
+                            <option value="Ondo" {% if form.state.value == 'Ondo'%}selected{% endif %}>Ondo</option>
+                            <option value="Osun" {% if form.state.value == 'Osun'%}selected{% endif %}>Osun</option>
+                            <option value="Oyo" {% if form.state.value == 'Oyo'%}selected{% endif %}>Oyo</option>
+                            <option value="Plateau" {% if form.state.value == 'Plateau'%}selected{% endif %}>Plateau</option>
+                            <option value="Rivers" {% if form.state.value == 'Rivers'%}selected{% endif %}>Rivers</option>
+                            <option value="Sokoto" {% if form.state.value == 'Sokoto'%}selected{% endif %}>Sokoto</option>
+                            <option value="Taraba" {% if form.state.value == 'Taraba'%}selected{% endif %}>Taraba</option>
+                            <option value="Yobe" {% if form.state.value == 'Yobe'%}selected{% endif %}>Yobe</option>
+                            <option value="Zamfara" {% if form.state.value == 'Zamfara'%}selected{% endif %}>Zamfara</option>
+                        </select>
+                        {% if form.state.errors %}
+                        <span class="error-msg">{{form.state.errors}}</span>
+                        {% endif %}
+                    </div>
+                    <div class="col-6 side-form-group">
+                      <select name="lga" id="lga" class="select-lga form-control" placeholder=" " required>
+                          <option value="">L.G.A</option>
+                      </select>
+                      {% if form.lga.errors %}
+                      <span class="error-msg">{{form.lga.errors}}</span>
+                      {% endif %}
+                  </div>
+                    </div>
+                    <div class="form-group mb-4">
+                      <input type="text" name="hometown" class="form-control" placeholder=" " value="{{form.hometown.value|default:''}}" required>
+                      <label> Home Town </label>
+                      {% if form.hometown.errors %}
+                          <span class="error-msg">{{form.hometown.errors}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="form-group mb-4">
+                      <input type="text" name="residential_address" class="form-control" placeholder=" " value="{{form.residential_address.value|default:''}}" required>
+                      <label> Residential Address </label>
+                      {% if form.residential_address.errors %}
+                          <span class="error-msg">{{form.residential_address.errors}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="form-group mb-4">
+                      <label for="">Class*</label>
+                        <!-- <select name="_class" id="" class="form-control" style="padding-left: 4px;" required>
+                            <option value="">Class*</option>
+                            <option value="">JSS1</option>
+                            <option value="">JSS2</option>
+                        </select> -->
+                        {{form.klass}}
+                        
+                    </div>
+                    <div class="form-group mb-4">
+                      {{form.subjects.label}}*
+                      <select name="subjects" id="" class="form-control option-odd-remove" multiple>
+                          {% for x in form.subjects %}
+                              <option value="{{x.id}}">{{x}}</option>
+                          {% endfor %}
+                      </select>
+                      <span class="small-text">Hold ctrl and click to select multiple options</span>
+                      {% if form.subjects.errors %}
+                      <span class="error-msg small-text">{{form.subjects.errors}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="text" name="guardianname" value="{{form.guardianname.value|default:''}}" class="form-control" placeholder=" " required>
+                        <label> Guardian Full Name* </label>
+                        {% if form.guardianname.errors %}
+                      <span class="error-msg small-text">{{form.guardianname.errors}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="email" name="guardianemail" value="{{form.guardianemail.value|default:''}}" class="form-control" placeholder=" " required>
+                        <label> Guardian's Email* </label>
+                        {% if form.guardianemail.errors %}
+                        <span class="error-msg small-text">{{form.guardianemail.errors}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="text" name="guardianphonenumber" value="{{form.guardianphonenumber.value|default:''}}" class="form-control" placeholder=" " required>
+                        <label> Guardian's Phone Number* </label>
+                        {% if form.guardianphonenumber.errors %}
+                        <span class="error-msg small-text">{{form.guardianphonenumber.errors}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="form-group flex-between">
+                        <input type="submit" value="Save" class="site-button">
+                        <input type="submit" value="Save and Add Another" class="site-button">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extrascript %}
+<script src="{% static 'staff/apis/lga.min.js' %}"></script>
+<script src="{% static 'staff/jquery.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  var imageFileButton = document.getElementById('image-file-button');
+  var imageButton = document.getElementById('image-button');
+  var imageText = document.getElementById('image-text');
+  var state = document.getElementById('state');
+  imageButton.onclick = function(){
+      imageFileButton.click();
+  }
+  imageFileButton.onchange = function(){
+      if(imageFileButton.value != ""){
+          imageText.textContent = imageFileButton.files[0].name;
+      }
+  }
+  if(state.value != ""){
+      toggleLGA(state)
+  }
+  $("#datepicker").datepicker({
+    changeYear: true,
+    changeMonth: true,
+    altFormat: 'dd/mm/yy'
+  });
+  
+</script>
+{% endblock %}

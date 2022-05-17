@@ -1,0 +1,148 @@
+{% extends 'admins/base.html' %}
+{% load staticfiles %}
+{% load path_checker %}
+{% block title %} Students {% endblock %}
+{% block content %}
+      <div class="content-nav">
+        <h2 class="greetings">Students</h2>
+        <a href="{% url 'admins:student-add-form' %}" class="content-nav-link">
+          <span class="nav-icon">
+            <i class="fas fa-user-plus"></i>
+          </span>
+        </a>
+      </div>
+      <!-- content features -->
+      <div class="staff-items">
+        <!-- staff -->
+        <div class="search-filter">
+          <!-- searchbar -->
+          <div class="searchbar">
+            <input
+              type="search"
+              name="search"
+              id="search"
+              class="search"
+              placeholder="search ..."
+            />
+          </div>
+          <!-- class filter -->
+          <div class="filter">
+            <div class="class-filter">
+              <select name="filter-one" id="filter-one" class="filter-items">
+                <option value="class">JSS-1</option>
+                <option value="class">JSS-2</option>
+                <option value="class">JSS-3</option>
+                <option value="class">SSS-1</option>
+                <option value="class">SSS-2</option>
+                <option value="class">SSS-3</option>
+              </select>
+            </div>
+            <!-- subject filter -->
+            <div class="subject-filter">
+              <select name="filter-two" id="filter-two" class="filter-items">
+                <option value="class">Fiqh</option>
+                <option value="class">Aqeedah</option>
+                <option value="class">Seerah</option>
+                <option value="class">Hadith</option>
+                <option value="class">Quran</option>
+                <option value="class">Tajweed</option>
+              </select>
+            </div>
+            <!-- subject filter -->
+            <div class="subject-filter">
+              <select name="filter-two" id="filter-two" class="filter-items">
+                <option value="class">Male</option>
+                <option value="class">Female</option>
+              </select>
+            </div>
+            <!-- subject filter -->
+            <div class="subject-filter">
+              <select name="filter-two" id="filter-two" class="filter-items">
+                <option value="class">Paid</option>
+                <option value="class">Unpaid</option>
+                <option value="class">Pending</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- table data -->
+      <div class="box table-box">
+        {% if page_obj %}
+        <table class="style-table">
+            <caption style="text-align: right;">{{object_list|length}} Students</caption>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Sex</th>
+                    <th>Class</th>
+                    <th>Subject</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in page_obj %}
+                <tr>
+                    <td>
+                        <a href="{% url 'admins:student-details' object.id %}" class="table-link">
+                            {% if object.image %}
+                            <img src="{{ object.image.url}}"  class="table-image" >
+                        {% else %}
+                        {% if object.sex == 'M'%}
+                            <img src="{% static 'staff/images/male-placeholder.png' %}"  class="table-image">
+                        {% else %}
+                            <img src="{% static 'staff/images/female-placeholder.png' %}"  class="table-image">
+                        {% endif %}
+                        {% endif %}
+                            
+                            {{object.firstname}} {{object.lastname}}
+                        </a>
+                        
+                    </td>
+                    <td>
+                        {{object.get_sex_display}}
+                    </td>
+                    <td>
+                        {{object|get:"_class"}}
+                    </td>
+                    <td>
+                        Maths
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        
+        </table>
+        
+        <div class="flex-center">
+            <ul class="paginator">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" ><span>&laquo;</span></a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_obj.previous_page_number}}">{{page_obj.previous_page_number}}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"><span>&laquo;</span></a></li>
+                {% endif %}
+                
+                {% for pagenum in page_obj.paginator.page_range %}
+                {% if page_obj.number == pagenum %}
+                    <li class="page-item{% if page_obj.number == pagenum %} active{% endif %}">
+                        <a class="page-link" href="?page={{pagenum}}">{{pagenum}}</a>
+                    </li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?}page={{page_obj.next_page_number}}">{{page_obj.next_page_number}}</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}"><span>&raquo;</span></a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#" ><span>&raquo;</span></a></li>
+                {% endif %}
+            </ul>
+        </div>
+        {% else %}
+        <div class="no-item">
+            <p>No Students Yet</p>
+        </div>
+        {% endif%}
+    </div>
+{% endblock %}

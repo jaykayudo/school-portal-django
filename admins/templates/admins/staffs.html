@@ -1,0 +1,145 @@
+{% extends 'admins/base.html' %}
+{% load staticfiles %}
+{% block title %} Staffs {% endblock %}
+{% block content %}
+      <div class="content-nav">
+        <h2 class="greetings">Staffs</h2>
+        <a href="{% url 'admins:staff-add' %}" class="content-nav-link">
+          <span class="nav-icon">
+            <i class="fas fa-user-plus"></i>
+          </span>
+        </a>
+      </div>
+      <!-- content features -->
+      <div class="staff-items">
+        <!-- staff -->
+      {% if page_obj%}
+        <div class="search-filter">
+          <!-- searchbar -->
+          <div class="searchbar">
+            <input
+              type="search"
+              name="search"
+              id="search"
+              class="search"
+              placeholder="search ..."
+            />
+          </div>
+          <!-- class filter -->
+          <div class="filter">
+            <div class="class-filter">
+              <select name="class" id="" class="filter-items">
+                <option value="">Class</option>
+                {% for x in classes %}
+                    <option value="{{x.id}}">{{x}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <!-- subject filter -->
+            <div class="subject-filter">
+              <select name="" id="" class="filter-items">
+                <option value="">Subject</option>
+                {% for x in subjects %}
+                    <option value="{{x.id}}">{{x.abbr}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <!-- active filter -->
+            <div class="active-filter">
+              <select
+                name="filter-three"
+                id="filter-three"
+                class="filter-items"
+              >
+                <option value="class">Active</option>
+                <option value="class">Inactive</option>
+              </select>
+            </div>
+            <!-- teaching filter -->
+            <div class="teaching-filter">
+              <select name="filter-four" id="filter-four" class="filter-items">
+                <option value="class">Teaching</option>
+                <option value="class">Non-Teaching</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- table data -->
+      <div class="box table-box">
+        <table class="style-table">
+          <caption style="text-align:right;">{{object_list|length}} Staffs</caption>
+          <thead>
+            <tr>
+              <th>Staff Name</th>
+              <th>Sex</th>
+              <th>Programmes</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for object in page_obj %}
+                      <tr>
+                            <td>
+                                <a href="{% url 'admins:staff-details' object.id %}" class="table-link">
+                                {% if object.image %}
+                                    <img src="{{ object.image.url}}"  class="table-image" >
+                                {% else %}
+                                  {% if object.sex == 'M'%}
+                                      <img src="{% static 'staff/images/male-placeholder.png' %}"  class="table-image">
+                                  {% else %}
+                                      <img src="{% static 'staff/images/female-placeholder.png' %}"  class="table-image">
+                                  {% endif %}
+                                {% endif %}
+                                    
+                                    {{object.firstname}} {{object.lastname}}
+                                </a>
+                                
+                            </td>
+                            <td>
+                                {{object.get_sex_display}}
+                            </td>
+                            <td>
+                                {{object.programme.all|join:"<br>"}}
+                            </td>
+                            <td>
+                              {%if object.status %}active{% else %}inactive{% endif %}
+                            </td>
+                        </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+        <div class="flex-center">
+          <ul class="paginator">
+              {% if page_obj.has_previous %}
+                  <li class="page-item"><a class="page-link" ><span>&laquo;</span></a></li>
+                  <li class="page-item">
+                      <a class="page-link" href="?page={{page_obj.previous_page_number}}">{{page_obj.previous_page_number}}</a>
+                  </li>
+                  {% else %}
+                  <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"><span>&laquo;</span></a></li>
+              {% endif %}
+              
+              {% for pagenum in page_obj.paginator.page_range %}
+              {% if page_obj.number == pagenum %}
+                  <li class="page-item{% if page_obj.number == pagenum %} active{% endif %}">
+                      <a class="page-link" href="?page={{pagenum}}">{{pagenum}}</a>
+                  </li>
+              {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+                  <li class="page-item"><a class="page-link" href="?}page={{page_obj.next_page_number}}">{{page_obj.next_page_number}}</a></li>
+                  <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}"><span>&raquo;</span></a></li>
+              {% else %}
+                  <li class="page-item disabled"><a class="page-link" href="#" ><span>&raquo;</span></a></li>
+              {% endif %}
+          </ul>
+      </div>
+      {% else %}
+      <div class="no-item">
+        <p>No Staff</p>
+      </div>
+      {% endif%}
+      </div>
+{% endblock %}

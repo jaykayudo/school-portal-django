@@ -1,0 +1,218 @@
+{% extends 'staff/base.html' %}
+{% load staticfiles %}
+{% load path_checker %}
+{% block content %}
+            <div class="content-nav">
+                <h2>Good Day, {{request.user.staff.firstname}} {{request.user.staff.lastname}}</h2>
+                <a href="{% url 'staff:inbox-list' %}" class="content-nav-link">
+                    <span class="nav-icon relative">
+                        <i class="fa-solid fa-bell"></i>
+                        {% if unread %}
+                        <span class="not-indic"></span>
+                        {% endif %}
+                    </span>
+                </a>
+               
+            </div>
+            <div class="content-body">
+                <div class="pad-container">
+                    <div class="boot-row row-reverse">
+                    <div class="col-md-8">
+                        <div class="box">
+                            <p> <span><i class="fa-solid fa-triangle-exclamation"></i></span> Your uploads are not yet complete </p>
+                        </div>
+                        <div class="row-6">
+                          <div class="box">
+                            <h4>Subjects Handled</h4>
+                            <p class="flex-center text-large color-purple pt-1 pb-1">
+                              {{subject_no|default:"0"}}
+                            </p>
+
+                          </div>
+                          <div class="box">
+                            <h4>Students Handled</h4>
+                            <p class="flex-center text-large color-purple pt-1 pb-1">
+                              {{student_no|default:"0"}}
+                            </p>
+                          </div>
+                          <div class="box">
+                            <h4>Uploads required</h4>
+                            <p class="flex-center text-large color-purple pt-1 pb-1">
+                              {{upload|default:"0"}}
+                            </p>
+
+                          </div>
+                          <div class="box">
+                            <h4>Classes Handled</h4>
+                            <p class="flex-center text-large color-purple pt-1 pb-1">
+                              {{class_no|default:"0"}}
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <div class="box table-box">
+                            <h3>Completed Uploads</h3>
+                            {% if completed_upload %}
+                            <table class="style-table">
+                                <thead>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Date Uploaded</td>
+                                        <td>Status</td>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Schedule</td>
+                                        <td>1st April, 2022</td>
+                                        <td><span class="status-state active">Uploaded</span></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Attendance</td>
+                                        <td>1st April, 2022</td>
+                                        <td><span class="status-state active">Uploaded</span></td>
+                                  
+                                    </tr>
+                                    <tr>
+                                        <td>Syllabus - JSS 1</td>
+                                        <td>1st April, 2022</td>
+                                        <td><span class="status-state active">Uploaded</span></td>
+    
+                                    </tr>
+                                    <tr>
+                                        <td>Syllabus - JSS 2</td>
+                                        <td>1st April, 2022</td>
+                                        <td><span class="status-state completed">comfirmed</span></td>
+    
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {% else %}
+                          <div class="no-item">
+                            <p>No Completed Uploads yet</p>
+                          </div>
+                        {% endif %}
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box">
+                            <div class="profile-stat">
+                              <a href="{% url 'staff:profile' %}">
+                                {% if request.user.staff.image %}
+                                    <img src="{{ request.user.staff.image.url}}" id="image" class="detail-profile-image" style="width: 100px; height: 100px;">
+                                {% else %}
+                                {% if request.user.staff.sex == 'M'%}
+                                    <img src="{% static 'staff/images/male-placeholder.png' %}" id="image" class="detail-profile-image" style="width: 100px; height: 100px;">
+                                {% else %}
+                                    <img src="{% static 'staff/images/female-placeholder.png' %}" id="image" class="detail-profile-image" style="width: 100px; height: 100px;">
+                                {% endif %}
+                                {% endif %}
+                              </a>
+                                
+                                <p><a href="{% url 'staff:profile' %}" class="link"><b>{{request.user.staff.firstname}} {{request.user.staff.lastname}}</b></a><br>
+                                  {{request.user.staff.position|default:"No Position"}}
+                                </p>
+                                <span><strong></strong>{%if request.user.staff.position %}active{% else %}inactive{% endif %}</span>
+                            </div>
+                            <div class="mt-2 flex-center">
+                                <smart-calendar id="calander"></smart-calendar>
+                            </div>
+                            <div class="schedule-box">
+                                <h3><span>Schedule for <span id="log">Today</span></span> <span><a href="javascript::void(0)" class="link color-white" id="schedule-open" title="Add Schedule"><i class="fa-solid fa-plus"></i></a></span> </h3>
+                                <div class="modal-box hidden" id="schedule-modal">
+                                    <span class="close-btn flex-center" id="schedule-close" title="close"><i class="fa fa-xmark"></i></span>
+                                    <div class="form-box">
+                                        <h3 class="header">Add Schedule</h3>
+                                        <form action="" method = "post">
+                                          {% csrf_token %}
+                                            <div class="form-group">
+                                                <input type="text" name="description" class="form-control" placeholder="Content*" required>
+                                                {% if form.description.errors %}
+                                                <span class="error-msg">{{form.description.errors}}</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                              <label> Time* </label>
+                                                <input type="time" name="time" placeholder="Time" class="form-control"required>
+                                                {% if form.time.errors %}
+                                                <span class="error-msg">{{form.time.errors}}</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                             <!-- <select name="_class" class="form-control">
+                                               <option value="">Class</option>
+                                               
+                                             </select> -->
+                                             <label> Class </label>
+                                             {{formclass}}
+                                            </div>
+                                            <input type="text" id ="date" name = "date" value = "" hidden required>
+                                            <input type="submit" class="site-button" value="Add">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="scroll-box" id="schedule-box">
+                                  {% for appoint in schedule %}
+                                    <div class="box-content">
+                                        <p>
+                                          {{appoint.description}}
+                                        </p>
+                                        <footer class="flex-between" style="padding: 5px 2px;">
+                                            <span>{{appoint|get:"_class"|default:"No class involved"}}</span><span><i class="fa-solid fa-clock">&nbsp;{{appoint.time}}</i></span>
+                                        </footer>
+                                    </div>
+                                  {% empty %}
+                                  <div class="no-item">
+                                    <p>No Schedule yet</p>
+                                  </div>
+                                  {% endfor %}
+                                </div>
+                                <div id="loader" class="loader-container flex-center hidden">
+                                	<div class="loader">
+                                		
+                                	</div>
+                                </div>
+
+                               
+
+                                    
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+        </div>
+{% endblock %}
+{% block extrascript %}
+    <script>
+        var date = document.getElementById("date")
+        date.value = new Date().toLocaleDateString();
+        var scheduleContainer = document.getElementById('schedule-box');
+        const calendar = document.querySelector('smart-calendar');
+    
+        calendar.addEventListener('change', function (event) {
+            var day = new Date(event.detail.value.toString());
+            
+            date.value = day.toLocaleDateString();
+        document.getElementById('log').innerHTML = day.toDateString() == new Date().toDateString() ? "Today":day.toDateString() ;
+        getSchedule(scheduleContainer,day.toLocaleDateString());
+      
+      });
+    var scheduleModal = document.getElementById('schedule-modal');
+    var scheduleModalClose = document.getElementById('schedule-close');
+    scheduleModalClose.addEventListener('click',function(){
+        scheduleModal.classList.add('hidden')
+    })
+    var scheduleModalOpen = document.getElementById('schedule-open');
+    scheduleModalOpen.addEventListener('click',function(){
+        scheduleModal.classList.remove('hidden')
+    })
+
+    </script>
+{% endblock %}   
+

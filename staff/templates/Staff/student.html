@@ -1,0 +1,110 @@
+{% extends 'staff/base.html' %}
+{% load staticfiles %}
+{% load path_checker %}
+{% block title %}Your Students{% endblock %}
+{% block content %}
+        <div class="pad-container">
+            <h2 class="header">
+                Your Student
+            </h2>
+            <div class="row">
+                <div class="column-8">
+                    <div class="style-form-group">
+                        <input type="text" class="style-form-control" placeholder="Search students">
+                    </div>
+                </div>
+                <div class="column-4">
+                    <select name="class" id="" class="filter">
+                        <option value="">Class</option>
+                        {% for x in classes %}
+                            <option value="{{x.id}}">{{x}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="" id="" class="filter">
+                        <option value="">Subject</option>
+                        {% for x in subjects %}
+                            <option value="{{x.id}}">{{x.abbr}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="box table-box">
+                {% if page_obj %}
+                <table class="style-table">
+                    <caption>{{object_list|length}} Students</caption>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Sex</th>
+                            <th>Class</th>
+                            <th>Subject</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for object in page_obj %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'staff:student-details' object.id %}" class="table-link">
+                                    {% if object.image %}
+                                    <img src="{{ object.image.url}}"  class="table-image" >
+                                {% else %}
+                                {% if object.sex == 'M'%}
+                                    <img src="{% static 'staff/images/male-placeholder.png' %}"  class="table-image">
+                                {% else %}
+                                    <img src="{% static 'staff/images/female-placeholder.png' %}"  class="table-image">
+                                {% endif %}
+                                {% endif %}
+                                    
+                                    {{object.firstname}} {{object.lastname}}
+                                </a>
+                                
+                            </td>
+                            <td>
+                                {{object.get_sex_display}}
+                            </td>
+                            <td>
+                                {{object|get:"_class"}}
+                            </td>
+                            <td>
+                                Maths
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                
+                </table>
+                
+                <div class="flex-center">
+                    <ul class="paginator">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" ><span>&laquo;</span></a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{page_obj.previous_page_number}}">{{page_obj.previous_page_number}}</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"><span>&laquo;</span></a></li>
+                        {% endif %}
+                        
+                        {% for pagenum in page_obj.paginator.page_range %}
+                        {% if page_obj.number == pagenum %}
+                            <li class="page-item{% if page_obj.number == pagenum %} active{% endif %}">
+                                <a class="page-link" href="?page={{pagenum}}">{{pagenum}}</a>
+                            </li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?}page={{page_obj.next_page_number}}">{{page_obj.next_page_number}}</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}"><span>&raquo;</span></a></li>
+                        {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#" ><span>&raquo;</span></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% else %}
+                <div class="no-item">
+                    <p>No Students Yet</p>
+                </div>
+                {% endif%}
+            </div>
+        </div>
+{% endblock %}

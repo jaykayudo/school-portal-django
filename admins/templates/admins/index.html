@@ -1,0 +1,85 @@
+{% extends 'admins/base.html' %}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+        <div class="content-nav">
+          <h2 class="greetings">
+            Good Day, <span class="admin-name">Joshua Kay</span>
+          </h2>
+          <a href="{% url 'admins:inbox' %}" class="content-nav-link">
+            <span class="nav-icon">
+              <i class="fas fa-bell"></i>
+            </span>
+          </a>
+        </div>
+
+        <!-- content features -->
+
+        <div class="content-items">
+          <!-- staff -->
+          <div class="content-staff">
+            <h1 class="content-heading">Staffs</h1>
+            <p class="content-value">{{staff_no}}</p>
+          </div>
+          <!-- Students -->
+          <div class="content-student">
+            <h1 class="content-heading">Students</h1>
+            <p class="content-value">{{student_no}}</p>
+          </div>
+          <!-- Students -->
+          <div class="content-programme">
+            <h1 class="content-heading">Subjects</h1>
+            <p class="content-value">{{subject_no}}</p>
+          </div>
+          <!-- Classes-->
+          <div class="content-classes">
+            <h1 class="content-heading">Classes</h1>
+            <p class="content-value">{{class_no}}</p>
+          </div>
+          <!-- finance-->
+          <div class="content-finance">
+            <h1 class="content-heading">Events</h1>
+            <p class="content-value">{{event_no}}</p>
+          </div>
+          <!-- inbox-->
+          <div class="content-inbox">
+            <h1 class="content-heading">Inbox</h1>
+            <div class="content-scroll">
+              {% for x in recent_mail %}
+              <div class="content-sub-inbox">
+                <h2 class="content-subject">{{x.subject}}:</h2>
+                <p class="content-info">{{x.message}}</p>
+                <!-- dropdown -->
+                <i class="fas fa-angle-down"></i>
+              </div>
+              {% empty %}
+              <div class="no-item">
+                <p>No Mail</p>
+              </div>
+              {% endfor %}
+              
+            </div>
+          </div>
+          <!-- events -->
+          <div class="content-event">
+            <h1 class="content-heading">Events</h1>
+            <div class="content-scroll">
+              {% for x in recent_events %}
+              <div class="content-sub-inbox">
+                <h2 class="content-subject">{{x.name}}:</h2>
+                <p class="content-info">{{x.date}}</p>
+                <!-- dropdown -->
+                <i class="fas fa-angle-down"></i>
+              </div>
+              {% empty %}
+              <div class="no-item">
+                <p>No Event</p>
+              </div>
+              {% endfor %}
+              
+            </div>
+          </div>
+        </div>
+{% endblock %}
+{% block extrascript %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}

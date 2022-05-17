@@ -1,0 +1,98 @@
+{% extends 'admins/base.html' %}
+{% load staticfiles %}
+{% block title %} Inbox {% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'staff/apis/smart.default.css' %}" />
+{% endblock %}
+{% block content %}
+        <div class="content-nav">
+          <h2 class="greetings">Inbox</h2>
+          <!-- nav btn -->
+          <div class="nav-link-add">
+            <a href="{% url 'admins:inbox-sent'%}" class="nav-icon-cancel">Sent</a>
+            <a href="{% url 'admins:inbox-received'%}" class="nav-icon-save">Received</a>
+          </div>
+          <a href="{% url 'admins:inbox-create' %}" class="content-nav-link">
+            <span class="nav-icon">
+              <i class="fas fa-pen-alt"></i>
+            </span>
+          </a>
+        </div>
+
+        <!-- content features -->
+
+        <div class="inbox-items">
+          <!-- messages -->
+          <div class="messages">
+            <div class="content-scroll-up">
+              {% for object in page_obj %}
+              <div class="content-sub-inbox">
+                  <a href="#" class="content-subject-up">{{object.subject}}:</a>
+  
+                  <p class="content-info">{{object.message|truncatechars:24}}</p>
+                  <span class="status-icon color-danger"
+                    ><i class="fas fa-bookmark"></i
+                  ></span>
+                  <footer class="flex-end small-text">
+                    <span><i class="fas fa-clock"></i>{{object.time}}</span>&nbsp;&nbsp;
+                    <span
+                      ><i class="fas fa-calendar-alt"></i>{{object.date}}</span
+                    >
+                  </footer>
+                  <!-- dropdown -->
+                </div>
+              {% empty %}
+              <div class="no-item">
+                  <p>No Mail</p>
+              </div>
+              {% endfor %}
+              
+          </div>
+          {% if page_obj %}
+              <div class="flex-center">
+                  <ul class="paginator">
+                      {% if page_obj.has_previous %}
+                          <li class="page-item"><a class="page-link" ><span>&laquo;</span></a></li>
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{page_obj.previous_page_number}}">{{page_obj.previous_page_number}}</a>
+                          </li>
+                          {% else %}
+                          <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true"><span>&laquo;</span></a></li>
+                      {% endif %}
+                      
+                      {% for pagenum in page_obj.paginator.page_range %}
+                      {% if page_obj.number == pagenum %}
+                          <li class="page-item{% if page_obj.number == pagenum %} active{% endif %}">
+                              <a class="page-link" href="?page={{pagenum}}">{{pagenum}}</a>
+                          </li>
+                      {% endif %}
+                      {% endfor %}
+                      {% if page_obj.has_next %}
+                          <li class="page-item"><a class="page-link" href="?}page={{page_obj.next_page_number}}">{{page_obj.next_page_number}}</a></li>
+                          <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}"><span>&raquo;</span></a></li>
+                      {% else %}
+                          <li class="page-item disabled"><a class="page-link" href="#" ><span>&raquo;</span></a></li>
+                      {% endif %}
+                  </ul>
+              </div>
+          {% endif %}
+          </div>
+          <!-- calendar -->
+          <div class="calendar">
+            <smart-calendar id="calander"></smart-calendar>
+          </div>
+        </div>
+{% endblock %}
+{% block extrascript %}
+<script type="module" src="{% static 'staff/apis/smart.calendar.js' %}"></script>
+<script>
+    window.onload = function(){
+    Smart('#calendar', class {
+    get properties() {
+        return {"selectedDates":[new Date(),"2022-7-17"]}
+    }
+  });
+    };
+</script>
+{% endblock %}

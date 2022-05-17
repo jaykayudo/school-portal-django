@@ -1,0 +1,91 @@
+{% extends 'staff/base.html' %}
+{% load staticfiles %}
+{% block title %}Uploads{% endblock %}
+{% block content %}
+            <div class="pad-container pt-4">
+                <h2 class="header">
+                    Uploads
+                </h2>
+                    <div class="pad-container">
+                        <div class="boot-row">
+                            <div class="col-md-4 col-6">
+                                <div class="box flex-between text-medium">
+                                    <p class="pe-2">Syllabus Jss1</p> <p class="pe-2"><i class="fa fa-check color-success"></i></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="box flex-between text-medium">
+                                    <p class="pe-2">Syllabus Jss2</p> <p class="pe-2"><i class="fa fa-close color-danger"></i></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="box flex-between text-medium">
+                                    <p class="pe-2">Syllabus Jss1</p> <p class="pe-2"><i class="fa fa-check color-success"></i></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="box flex-between text-medium">
+                                    <p class="pe-2">Attendance Jss1</p> <p class="pe-2"><i class="fa fa-close color-danger"></i></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="box flex-between text-medium">
+                                    <p class="pe-2">Attendance Jss2</p> <p class="pe-2"><i class="fa fa-close color-danger"></i></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-6">
+                                <div class="box flex-between text-medium">
+                                    <p class="pe-2">Attendance Jss3</p> <p class="pe-2"><i class="fa fa-close color-danger"></i></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="large-form-box">
+                            <div class="form-header">
+                                Upload File
+                            </div>
+                            <form action="">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder=" ">
+                                    <label> Message </label>
+                                </div>
+                                <div class="form-group">
+                                   <select name="" id="" class="form-control" style="padding-left: 4px;">
+                                       <option value="">Choose a Section</option>
+                                       <option value="">Schedule</option>
+                                       <option value="">Syllabus - JSS1</option>
+                                       <option value="">Syllabus - JSS2</option>
+                                       <option value="">Syllabus - JSS3</option>
+                                       <option value="">Attendance - JSS1</option>
+                                       <option value="">Attendance - JSS2</option>
+                                       <option value="">Attendance - JSS3</option>
+                                       <option value="">Others</option>
+                                   </select>
+                                </div>
+                                <div class="form-group">
+                                    <button class="site-button" id="file-button"><i class="fa fa-upload"></i> Choose a File</button> <span id="file-text" class="small-text">No File Chosen</span>
+                                    <input type="file" name="file" id="file" hidden>
+                                </div>
+                                <div class="form-group flex-center">
+                                    <input type="submit" value="Upload" class="site-button">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+{% endblock %}
+{% block extrascript %}
+    <script>
+        document.getElementById('file-button').onclick = function(e){
+            e.preventDefault()
+            document.getElementById('file').click()
+        }
+        document.getElementById('file').onchange = function(e){
+            if(e.target.value == ""){
+                document.getElementById('file-text').textContent = "No File Chosen"
+            }
+            else{
+                document.getElementById('file-text').textContent = e.target.files.length + " File Chosen"
+            }
+        }
+    </script>
+{% endblock %}

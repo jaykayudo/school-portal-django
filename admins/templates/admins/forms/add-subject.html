@@ -1,0 +1,47 @@
+{% extends 'admins/base.html' %}
+{% load path_checker %}
+{% block title %} {{title}} {% endblock %}
+{% block content %}  
+  <div >
+  <a href="{% url 'admins:programme' %}" class="back-button large-text">
+      <i class="fas fa-arrow-left"></i>
+  </a>
+  </div>
+        <div class="pad-container pt-4">
+          <div class="pt-4">
+            <h2 class="header flex-center">{{title}}</h2>
+          </div>
+          
+        <div class="flex-center page-box">
+            <div class="large-form-box">
+                <div class="form-header">
+                    Fill the Form
+                </div>
+                <form action="" method="POST" class="mb-4">
+                    {% csrf_token %}
+                    <div class="form-group mb-4">
+                      <input type="text" name="name" value="{{form.name.value|default:''}}" class="form-control" placeholder=" " required>
+                        <label> {{form.name.label}}* </label>
+                        {% if form.name.errors %}
+                        <span class="error-msg">{{form.name.errors}}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group mb-4">
+                      <input type="text" name="abbr" value="{{form.abbr.value|default:''}}" class="form-control" placeholder=" " required>
+                        <label> {{form.abbr.label}}* </label>
+                        {% if form.abbr.errors %}
+                        <span class="error-msg">{{form.abbr.errors}}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group flex-center">
+                        <button class="site-button">
+                            <i class="fas fa-plus"></i>&nbsp;{{btn_text}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
