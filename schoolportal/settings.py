@@ -15,7 +15,7 @@ SECRET_KEY = 'r)u$z#z)#)a%n-rzm@4*obmrudo77s&+k%sv!z^g3kgo-ua)@_'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['school-portal-josh.herokuapp.com','www.school-portal-josh.herokuapp.com','localhost','127.0.0.1']
 
 
 
